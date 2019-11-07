@@ -13,28 +13,50 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var folders : [String]?
     
     
+    @IBOutlet var tableview: UITableView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         self.navigationItem.rightBarButtonItem = editButtonItem
+        folders = []
+       
     }
 
 
     @IBAction func newFolder(_ sender: UIBarButtonItem) {
         
         let alercontroller = UIAlertController(title: "New Folder", message: "Enter a name for this folder", preferredStyle: .alert)
-        alercontroller.addTextField { (textFeild) in
-            textFeild.text = "name"
-        }
+        
+       alercontroller.addTextField { (text) in
+           text.placeholder = "name"
+       }
+        
+        
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let addItemAction = UIAlertAction(title: "Add Item", style: .cancel, handler: nil)
         
         
         alercontroller.addAction(cancelAction)
-        alercontroller.addAction(addItemAction)
+        alercontroller.addAction(UIAlertAction(title: "Add Item", style: .default, handler: { (action) in
+            
+            
+            let name = alercontroller.textFields?.first?.text
+            self.folders?.append(name!)
+            self.tableview.reloadData()
+            
+        }))
+        
+//         UIAlertAction(title: "Add Item", style: .default) { (action) in
+//            let name = alercontroller.textFields?.first?.text
+//
+//            self.folders?.append(name!)
+//            self.tableview.reloadData()
+//            print(self.folders!)
+//        }
+//
         
         self.present(alercontroller, animated: true, completion: nil)
     }
@@ -45,8 +67,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        return UITableViewCell()
+        guard folders  != nil else {
+            return UITableViewCell()
+        }
         
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "")
+        cell.textLabel?.text = folders![indexPath.row]
+        cell.imageView?.image = UIImage(named: "folder-icon")
+        
+        return cell
     }
+   
 }
 

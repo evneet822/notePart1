@@ -45,6 +45,9 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="FIx-0g-2j9"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableview" destination="ec5-Mw-Qq3" id="k4y-sL-l65"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
